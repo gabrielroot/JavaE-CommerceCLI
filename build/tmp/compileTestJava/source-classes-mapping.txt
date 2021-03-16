@@ -1,0 +1,2 @@
+br/edu/ifnmg/poo/ecommerce/test/UsuarioTest.java
+ br.edu.ifnmg.poo.ecommerce.test.UsuarioTest
