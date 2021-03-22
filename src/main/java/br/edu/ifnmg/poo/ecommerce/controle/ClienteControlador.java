@@ -20,8 +20,7 @@ public class ClienteControlador {
     }
     
     public void cadastrarCliente(Cliente cliente, ArrayList<EnderecoEntrega> enderecos){
-        cliente.setEnderecosEntrega(enderecos);
-        ClienteDAO.adicionarCliente(cliente);
+        ClienteDAO.adicionarCliente(cliente, enderecos);
     }
     
     public Cliente buscarCliente(int id) {

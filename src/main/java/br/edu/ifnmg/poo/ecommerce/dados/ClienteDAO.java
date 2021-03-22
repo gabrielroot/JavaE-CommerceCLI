@@ -6,6 +6,7 @@
 package br.edu.ifnmg.poo.ecommerce.dados;
 
 import br.edu.ifnmg.poo.ecommerce.modelo.Cliente;
+import br.edu.ifnmg.poo.ecommerce.modelo.EnderecoEntrega;
 import java.util.ArrayList;
 
 /**
@@ -21,8 +22,13 @@ public class ClienteDAO {
         return clientes;
     }
     
-    public static void adicionarCliente(Cliente cliente) {
+    public static void adicionarCliente(Cliente cliente, ArrayList<EnderecoEntrega> enderecos) {
         cliente.setId(genId);
+        EnderecoEntregaDAO endereco = new EnderecoEntregaDAO();
+        for(EnderecoEntrega end : enderecos){
+            endereco.adicionarEndereco(end);
+        }
+        cliente.setEnderecosEntrega(enderecos);
         clientes.add(cliente);
         genId++;
     }

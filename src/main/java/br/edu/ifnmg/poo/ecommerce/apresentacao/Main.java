@@ -28,15 +28,18 @@ public class Main {
 //            System.out.println("1 - Cadastros");
 //            System.out.println("");
 //        } while (true);
-        Cliente cliente = new Cliente("nome", "email", "senha", "cpf");
-        EnderecoEntregaDAO address = new EnderecoEntregaDAO();
+
+        Cliente cliente = new Cliente("nomeCLIENT", "emailCLIENT", "senhaCLIENT", "cpf");
+//        EnderecoEntregaDAO enderecoDAO = new EnderecoEntregaDAO();
         EnderecoEntrega endereco01 = new EnderecoEntrega("nome", "cep", "estado", "cidade", "bairro", "ruaAv");
-        address.adicionarEndereco(endereco01);
+//        enderecoDAO.adicionarEndereco(endereco01);
         EnderecoEntrega endereco02 = new EnderecoEntrega("nome2", "cep2", "estado2", "cidade2", "bairro2", "ruaAv2");
-        address.adicionarEndereco(endereco02);
+//        enderecoDAO.adicionarEndereco(endereco02);
         
         
-        ArrayList<EnderecoEntrega> enderecos = address.listarEnderecos();
+        ArrayList<EnderecoEntrega> enderecos = new ArrayList<>();
+        enderecos.add(endereco01);
+        enderecos.add(endereco02);
         
         ClienteControlador clientes = new ClienteControlador();
         clientes.cadastrarCliente(cliente, enderecos);
@@ -57,6 +60,8 @@ public class Main {
                 System.out.println("    "+endereco.getCidade());
             }
         }
+        
+        System.out.println(clientes.buscarCliente(0).getNome());
         
     }
     
