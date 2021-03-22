@@ -7,6 +7,7 @@ package br.edu.ifnmg.poo.ecommerce.controle;
 
 import br.edu.ifnmg.poo.ecommerce.dados.ClienteDAO;
 import br.edu.ifnmg.poo.ecommerce.modelo.Cliente;
+import br.edu.ifnmg.poo.ecommerce.modelo.EnderecoEntrega;
 import java.util.ArrayList;
 
 /**
@@ -18,7 +19,8 @@ public class ClienteControlador {
         return ClienteDAO.listarClientes();
     }
     
-    public void cadastrarCliente(Cliente cliente){
+    public void cadastrarCliente(Cliente cliente, ArrayList<EnderecoEntrega> enderecos){
+        cliente.setEnderecosEntrega(enderecos);
         ClienteDAO.adicionarCliente(cliente);
     }
     
