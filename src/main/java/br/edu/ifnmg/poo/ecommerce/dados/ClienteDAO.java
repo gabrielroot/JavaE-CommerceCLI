@@ -17,6 +17,7 @@ public class ClienteDAO {
     private static int genId = 0;
     
     public static ArrayList listarClientes(){
+        EnderecoEntregaDAO enderecos = new EnderecoEntregaDAO();
         return clientes;
     }
     

@@ -18,6 +18,24 @@ public class Cliente extends Usuario{
     public Cliente(String nome, String email, String senha, String cpf) {
         super(nome, email, senha, cpf);
     }
+
+    public ArrayList<EnderecoEntrega> getEnderecosEntrega() {
+        return enderecosEntrega;
+    }
+
+    public void setEnderecosEntrega(ArrayList<EnderecoEntrega> enderecosEntrega) {
+        this.enderecosEntrega = enderecosEntrega;
+    }
+
+    public ArrayList<Produto> getCarrinho() {
+        return carrinho;
+    }
+
+    public void setCarrinho(ArrayList<Produto> carrinho) {
+        this.carrinho = carrinho;
+    }
+    
+    
     
     public void novoEndereco(String nome, String cep, String estado, String cidade, String bairro, String ruaAv){
         EnderecoEntrega endereco = new EnderecoEntrega(nome, cep, estado, cidade, bairro, ruaAv);

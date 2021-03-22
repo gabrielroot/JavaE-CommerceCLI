@@ -16,11 +16,11 @@ public class EnderecoEntregaDAO {
     private static ArrayList<EnderecoEntrega> enderecos = new ArrayList<>();
     private static int genId = 0;
     
-    public ArrayList<EnderecoEntrega> listarEnderecos(){
+    public static ArrayList<EnderecoEntrega> listarEnderecos(){
         return enderecos;
     }
     
-    public void cadastrarEndereco(EnderecoEntrega endereco){
+    public static void adicionarEndereco(EnderecoEntrega endereco){
         endereco.setId(genId);
         enderecos.add(endereco);
         genId++;
