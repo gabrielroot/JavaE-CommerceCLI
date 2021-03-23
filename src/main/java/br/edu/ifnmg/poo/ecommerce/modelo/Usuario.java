@@ -72,8 +72,8 @@ public abstract class Usuario {
         return comentarios;
     }
     
-    public void comentar(String titulo, String mensagem){
-        Comentario comentario = new Comentario(titulo, mensagem);
-        this.comentarios.add(comentario);
-    }
+//    public void comentar(String titulo, String mensagem){
+//        Comentario comentario = new Comentario(titulo, mensagem);
+//        this.comentarios.add(comentario);
+//    }
 }

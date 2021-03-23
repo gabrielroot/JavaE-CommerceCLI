@@ -5,6 +5,7 @@
  */
 package br.edu.ifnmg.poo.ecommerce.dados;
 
+import br.edu.ifnmg.poo.ecommerce.controle.ProdutoControlador;
 import br.edu.ifnmg.poo.ecommerce.modelo.Produto;
 import br.edu.ifnmg.poo.ecommerce.modelo.Vendedor;
 import java.util.ArrayList;
@@ -40,13 +41,13 @@ public class VendedorDAO {
     }
     
     public static boolean editarVendedor(int id, Vendedor vendedor){
-        ProdutoDAO produtoDAO = new ProdutoDAO();
+        ProdutoControlador produtoControlador = new ProdutoControlador();
         for (Vendedor encontrado : vendedores) {
             if(encontrado.getId() == id){
                 encontrado = vendedor;
                 for(Produto produto:encontrado.getProdutos()){
-                    if(!produtoDAO.listarProdutos().contains(produto)){
-                        produtoDAO.adicionarProduto(produto);
+                    if(!produtoControlador.listarProdutos().contains(produto)){
+                        produtoControlador.cadastrarProduto(produto);
                     }
                 }
                 return true;

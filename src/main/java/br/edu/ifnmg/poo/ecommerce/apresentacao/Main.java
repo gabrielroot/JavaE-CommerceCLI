@@ -8,9 +8,12 @@ package br.edu.ifnmg.poo.ecommerce.apresentacao;
 import br.edu.ifnmg.poo.ecommerce.controle.ClienteControlador;
 import br.edu.ifnmg.poo.ecommerce.controle.ProdutoControlador;
 import br.edu.ifnmg.poo.ecommerce.controle.VendedorControlador;
+import br.edu.ifnmg.poo.ecommerce.controle.ComentarioControlador;
 import br.edu.ifnmg.poo.ecommerce.modelo.Cliente;
+import br.edu.ifnmg.poo.ecommerce.modelo.Comentario;
 import br.edu.ifnmg.poo.ecommerce.modelo.EnderecoEntrega;
 import br.edu.ifnmg.poo.ecommerce.modelo.Produto;
+import br.edu.ifnmg.poo.ecommerce.modelo.Usuario;
 import br.edu.ifnmg.poo.ecommerce.modelo.Vendedor;
 import java.util.ArrayList;
 
@@ -24,14 +27,14 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("Logar()");
 //        do {            
 //            System.out.println("======== E-Commerce ========");
 //            System.out.println("1 - Cadastros");
 //            System.out.println("");
 //        } while (true);
-
         testarVendedor();
+        testarCliente();
+        testarComentario();
         
     }
     
@@ -39,7 +42,7 @@ public class Main {
         Cliente cliente = new Cliente("Felipe", "ff@g.com", "76432", "000.000.000-12");
         Cliente cliente2 = new Cliente("Gabriel", "gg@g.com", "1233", "000.000.000-12");
         EnderecoEntrega endereco01 = new EnderecoEntrega("Felipe", "38.340-999", "SP", "Guarulhos", "desconhecido", "rua 1");
-        EnderecoEntrega endereco02 = new EnderecoEntrega("Carla", "33.340-999", "SP", "Guarulhos", "desconhecido", "rua 12");
+        EnderecoEntrega endereco02 = new EnderecoEntrega("Carla", "33.340-999", "AM", "Guarulhos", "desconhecido", "rua 12");
         EnderecoEntrega endereco3  = new EnderecoEntrega("Gabriel", "31.340-669", "PR", "xxxxxx", "desconhecido", "rua 111");
         
         ArrayList<EnderecoEntrega> enderecos = new ArrayList<>();
@@ -91,12 +94,44 @@ public class Main {
         
         Produto produto = new Produto("nomeProduto1", "descricaoProduto", 10, 120.50, "categoriaProduto");
         Produto produto2 = new Produto("nomeProduto2", "descricaoProduto", 10, 120.50, "categoriaProduto");
-        produtoControlador.cadastrarProduto(produto);
-        produtoControlador.cadastrarProduto(produto2);
+        ArrayList<Produto> produtos = new ArrayList<>();
+        produtos.add(produto);
+        produtos.add(produto2);
         
-        vend.setProdutos(produtoControlador.listarProdutos());
+        vend.setProdutos(produtos);
         vendedorControlador.editarVendedor(0,vend);
         System.out.println(vendedorControlador.listarVendedores().get(0).getProdutos().get(0).getNome());
         System.out.println(vendedorControlador.listarVendedores().get(0).getProdutos().get(1).getNome());
+        System.out.println(produtoControlador.listarProdutos().get(0).getPreco());
+    }
+
+    private static void testarComentario() {
+        ProdutoControlador produtoControlador = new ProdutoControlador();
+        ClienteControlador clienteControlador = new ClienteControlador();
+        ComentarioControlador comentarioControlador = new ComentarioControlador();
+        
+        Comentario comentario1 = new Comentario("titulo1", "mensagem do comentario no produto 1", produtoControlador.buscarProduto(0), clienteControlador.buscarCliente(0));
+        Comentario comentario2 = new Comentario("titulo2", "mensagem do comentario no produto 2", produtoControlador.buscarProduto(1), clienteControlador.buscarCliente(0));
+        comentarioControlador.cadastrarComentario(comentario1);
+        comentarioControlador.cadastrarComentario(comentario2);
+        System.out.println(comentarioControlador.listarComentarios().get(0).getMensagem());
+        System.out.println(comentarioControlador.listarComentarios().get(0).getProduto().getNome());
+        System.out.println(comentarioControlador.listarComentarios().get(0).getUsuario().getNome());
+        if(comentarioControlador.listarComentarios().get(0).getUsuario() instanceof Cliente){
+            Cliente cliente = (Cliente) comentarioControlador.listarComentarios().get(0).getUsuario();        
+            System.out.println(cliente.getEnderecosEntrega().get(0).getEstado());
+        }
+        
+        for(Comentario coment:comentarioControlador.buscarComentariosPorProduto(produtoControlador.buscarProduto(0))){
+            System.out.println(coment.getMensagem());
+        }
+        
+        comentario1.setMensagem(comentario1.getMensagem()+"[EDITADO]");
+        comentarioControlador.editarComentario(comentario1);
+        
+        Usuario user = (Usuario) clienteControlador.buscarCliente(0);
+        for(Comentario coment:comentarioControlador.buscarComentariosPorUsuario(user)){
+            System.out.println(coment.getMensagem());
+        }
     }
 }

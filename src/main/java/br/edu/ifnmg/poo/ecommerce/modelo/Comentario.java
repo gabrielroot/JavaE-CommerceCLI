@@ -13,20 +13,24 @@ public class Comentario {
     private int id;
     private String titulo;
     private String mensagem;
-    private LocalDateTime data;
-
-//    
-    //COMO FAZER UM RELACIONAMENTO N-N?  
-//    
+    private LocalDateTime data;   
+    private Produto produto;
+    private Usuario usuario;
     
-    public Comentario(String titulo, String mensagem) {
+    public Comentario(String titulo, String mensagem, Produto produto, Usuario usuario) {
         this.titulo = titulo;
         this.mensagem = mensagem;
         this.data = LocalDateTime.now();
+        this.usuario = usuario;
+        this.produto = produto;
     }
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitulo() {
@@ -51,5 +55,21 @@ public class Comentario {
 
     public void setData(LocalDateTime data) {
         this.data = data;
+    }
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }

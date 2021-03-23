@@ -31,8 +31,8 @@ public class ProdutoDAO {
         for(Produto produto : produtos){
             if(produto.getId() == id){
                 encontrado = produto;
+                break;
             }
-            break;
         }
         
         return encontrado;
@@ -42,10 +42,10 @@ public class ProdutoDAO {
         for(Produto produto : produtos){
             if(produto.getId() == id){
                 encontrado = prod;
+                return true;
             }
-            break;
         }
         
-        return true;
+        return false;
     }
 }
