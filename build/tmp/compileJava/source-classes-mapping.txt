@@ -2,8 +2,8 @@ br/edu/ifnmg/poo/ecommerce/modelo/Usuario.java
  br.edu.ifnmg.poo.ecommerce.modelo.Usuario
 br/edu/ifnmg/poo/ecommerce/dados/EnderecoEntregaDAO.java
  br.edu.ifnmg.poo.ecommerce.dados.EnderecoEntregaDAO
-br/edu/ifnmg/poo/ecommerce/dados/ProdutoDAO.java
- br.edu.ifnmg.poo.ecommerce.dados.ProdutoDAO
+br/edu/ifnmg/poo/ecommerce/controle/ClienteControlador.java
+ br.edu.ifnmg.poo.ecommerce.controle.ClienteControlador
 br/edu/ifnmg/poo/ecommerce/modelo/EnderecoEntrega.java
  br.edu.ifnmg.poo.ecommerce.modelo.EnderecoEntrega
 br/edu/ifnmg/poo/ecommerce/modelo/Cliente.java
@@ -14,8 +14,12 @@ br/edu/ifnmg/poo/ecommerce/modelo/Comentario.java
  br.edu.ifnmg.poo.ecommerce.modelo.Comentario
 br/edu/ifnmg/poo/ecommerce/dados/ClienteDAO.java
  br.edu.ifnmg.poo.ecommerce.dados.ClienteDAO
-br/edu/ifnmg/poo/ecommerce/controle/ClienteControlador.java
- br.edu.ifnmg.poo.ecommerce.controle.ClienteControlador
+br/edu/ifnmg/poo/ecommerce/controle/VendedorControlador.java
+ br.edu.ifnmg.poo.ecommerce.controle.VendedorControlador
+br/edu/ifnmg/poo/ecommerce/dados/ProdutoDAO.java
+ br.edu.ifnmg.poo.ecommerce.dados.ProdutoDAO
+br/edu/ifnmg/poo/ecommerce/dados/VendedorDAO.java
+ br.edu.ifnmg.poo.ecommerce.dados.VendedorDAO
 br/edu/ifnmg/poo/ecommerce/modelo/Produto.java
  br.edu.ifnmg.poo.ecommerce.modelo.Produto
 br/edu/ifnmg/poo/ecommerce/controle/ProdutoControlador.java

@@ -6,10 +6,12 @@
 package br.edu.ifnmg.poo.ecommerce.apresentacao;
 
 import br.edu.ifnmg.poo.ecommerce.controle.ClienteControlador;
+import br.edu.ifnmg.poo.ecommerce.controle.ProdutoControlador;
+import br.edu.ifnmg.poo.ecommerce.controle.VendedorControlador;
 import br.edu.ifnmg.poo.ecommerce.modelo.Cliente;
-import br.edu.ifnmg.poo.ecommerce.modelo.Comentario;
 import br.edu.ifnmg.poo.ecommerce.modelo.EnderecoEntrega;
-import br.edu.ifnmg.poo.ecommerce.dados.EnderecoEntregaDAO;
+import br.edu.ifnmg.poo.ecommerce.modelo.Produto;
+import br.edu.ifnmg.poo.ecommerce.modelo.Vendedor;
 import java.util.ArrayList;
 
 /**
@@ -29,20 +31,26 @@ public class Main {
 //            System.out.println("");
 //        } while (true);
 
-        Cliente cliente = new Cliente("nomeCLIENT", "emailCLIENT", "senhaCLIENT", "cpf");
-//        EnderecoEntregaDAO enderecoDAO = new EnderecoEntregaDAO();
-        EnderecoEntrega endereco01 = new EnderecoEntrega("nome", "cep", "estado", "cidade", "bairro", "ruaAv");
-//        enderecoDAO.adicionarEndereco(endereco01);
-        EnderecoEntrega endereco02 = new EnderecoEntrega("nome2", "cep2", "estado2", "cidade2", "bairro2", "ruaAv2");
-//        enderecoDAO.adicionarEndereco(endereco02);
+        testarVendedor();
         
+    }
+    
+        public static void testarCliente(){
+        Cliente cliente = new Cliente("Felipe", "ff@g.com", "76432", "000.000.000-12");
+        Cliente cliente2 = new Cliente("Gabriel", "gg@g.com", "1233", "000.000.000-12");
+        EnderecoEntrega endereco01 = new EnderecoEntrega("Felipe", "38.340-999", "SP", "Guarulhos", "desconhecido", "rua 1");
+        EnderecoEntrega endereco02 = new EnderecoEntrega("Carla", "33.340-999", "SP", "Guarulhos", "desconhecido", "rua 12");
+        EnderecoEntrega endereco3  = new EnderecoEntrega("Gabriel", "31.340-669", "PR", "xxxxxx", "desconhecido", "rua 111");
         
         ArrayList<EnderecoEntrega> enderecos = new ArrayList<>();
+        ArrayList<EnderecoEntrega> enderecos3 = new ArrayList<>();
         enderecos.add(endereco01);
         enderecos.add(endereco02);
+        enderecos3.add(endereco3);
         
         ClienteControlador clientes = new ClienteControlador();
         clientes.cadastrarCliente(cliente, enderecos);
+        clientes.cadastrarCliente(cliente2, enderecos3);
         
         
         for(Cliente row : clientes.listarClientes()){
@@ -61,8 +69,34 @@ public class Main {
             }
         }
         
-        System.out.println(clientes.buscarCliente(0).getNome());
-        
     }
     
+    public static void testarVendedor(){
+        Vendedor vend = new Vendedor("Felipe", "ff@g.com", "76432", "000.000.000-12");
+        Vendedor vend2 = new Vendedor("Gabriel", "gg@g.com", "1233", "000.000.000-12");
+
+        VendedorControlador vendedorControlador = new VendedorControlador();
+        ProdutoControlador produtoControlador = new ProdutoControlador();
+        vendedorControlador.cadastrarVendedor(vend);
+        vendedorControlador.cadastrarVendedor(vend2);
+        
+        
+        for(Vendedor row : vendedorControlador.listarVendedores()){
+            System.out.println(row.getId());
+            System.out.println(row.getNome());
+            System.out.println(row.getEmail());
+            System.out.println(row.getCpf());
+            System.out.println(row.getReputacao());
+        }
+        
+        Produto produto = new Produto("nomeProduto1", "descricaoProduto", 10, 120.50, "categoriaProduto");
+        Produto produto2 = new Produto("nomeProduto2", "descricaoProduto", 10, 120.50, "categoriaProduto");
+        produtoControlador.cadastrarProduto(produto);
+        produtoControlador.cadastrarProduto(produto2);
+        
+        vend.setProdutos(produtoControlador.listarProdutos());
+        vendedorControlador.editarVendedor(0,vend);
+        System.out.println(vendedorControlador.listarVendedores().get(0).getProdutos().get(0).getNome());
+        System.out.println(vendedorControlador.listarVendedores().get(0).getProdutos().get(1).getNome());
+    }
 }

@@ -34,4 +34,28 @@ public class Vendedor extends Usuario{
         }
         return false;
     }
+
+    public double getReputacao() {
+        return reputacao;
+    }
+
+    public void setReputacao(double reputacao) {
+        this.reputacao = reputacao;
+    }
+
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
+
+    public ArrayList<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(ArrayList<Produto> produtos) {
+        this.produtos = produtos;
+    }
 }

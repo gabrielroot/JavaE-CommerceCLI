@@ -16,6 +16,10 @@ public class ProdutoDAO {
     private static ArrayList<Produto> produtos = new ArrayList<>();
     private static int genId = 0;
     
+    public static ArrayList<Produto> listarProdutos(){
+        return produtos;
+    }
+    
     public static void adicionarProduto(Produto produto){
         produto.setId(genId);
         produtos.add(produto);
@@ -32,5 +36,16 @@ public class ProdutoDAO {
         }
         
         return encontrado;
+    }
+    public static boolean editarProduto(int id, Produto prod) {
+        Produto encontrado = null;
+        for(Produto produto : produtos){
+            if(produto.getId() == id){
+                encontrado = prod;
+            }
+            break;
+        }
+        
+        return true;
     }
 }
