@@ -9,12 +9,18 @@ import br.edu.ifnmg.poo.ecommerce.controle.ClienteControlador;
 import br.edu.ifnmg.poo.ecommerce.controle.ProdutoControlador;
 import br.edu.ifnmg.poo.ecommerce.controle.VendedorControlador;
 import br.edu.ifnmg.poo.ecommerce.controle.ComentarioControlador;
+import br.edu.ifnmg.poo.ecommerce.controle.CompraControlador;
 import br.edu.ifnmg.poo.ecommerce.modelo.Cliente;
 import br.edu.ifnmg.poo.ecommerce.modelo.Comentario;
+import br.edu.ifnmg.poo.ecommerce.modelo.Compra;
 import br.edu.ifnmg.poo.ecommerce.modelo.EnderecoEntrega;
+import br.edu.ifnmg.poo.ecommerce.modelo.PagamentoPorBoleto;
+import br.edu.ifnmg.poo.ecommerce.modelo.PagamentoPorCartao;
 import br.edu.ifnmg.poo.ecommerce.modelo.Produto;
 import br.edu.ifnmg.poo.ecommerce.modelo.Usuario;
 import br.edu.ifnmg.poo.ecommerce.modelo.Vendedor;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 
 /**
@@ -35,6 +41,7 @@ public class Main {
         testarVendedor();
         testarCliente();
         testarComentario();
+        testarCompra();
         
     }
     
@@ -50,6 +57,10 @@ public class Main {
         enderecos.add(endereco01);
         enderecos.add(endereco02);
         enderecos3.add(endereco3);
+        
+        ProdutoControlador produtoControlador = new ProdutoControlador();
+        cliente.setCarrinho(produtoControlador.listarProdutos());
+        ClienteControlador.editarCliente(cliente.getId(), cliente);
         
         ClienteControlador clientes = new ClienteControlador();
         clientes.cadastrarCliente(cliente, enderecos);
@@ -71,6 +82,7 @@ public class Main {
                 System.out.println("    "+endereco.getCidade());
             }
         }
+        System.out.println(clientes.buscarCliente(0).getCarrinho().get(0).getDescricao()+" -> Produto do carrinho");
         
     }
     
@@ -133,5 +145,29 @@ public class Main {
         for(Comentario coment:comentarioControlador.buscarComentariosPorUsuario(user)){
             System.out.println(coment.getMensagem());
         }
+    }
+
+    private static void testarCompra() {
+        ClienteControlador clienteControlador = new ClienteControlador();
+        CompraControlador compraControlador = new CompraControlador();
+        ProdutoControlador produtoControlador = new ProdutoControlador();
+        PagamentoPorBoleto pagamentoPorBoleto = new PagamentoPorBoleto("cpf", 0, "codBarra", LocalDateTime.of(2021, 4, 20, 0, 0), "nome");
+        PagamentoPorCartao pagamentoPorCartao = new PagamentoPorCartao("NomePagamento","Númerocatao23434", "codSeguranca112", 12);
+        
+        Compra compra = new Compra(pagamentoPorBoleto, produtoControlador.listarProdutos(), clienteControlador.buscarCliente(0));
+        Compra compra2 = new Compra(pagamentoPorCartao, produtoControlador.listarProdutos(), clienteControlador.buscarCliente(0));
+        compraControlador.cadastrarCompra(compra);
+        compraControlador.cadastrarCompra(compra2);
+        
+        for(Produto produto:compraControlador.buscarCompra(0).getProdutos()){
+            System.out.println(produto.getDescricao()+" <- Produtos da compra ");
+        }
+        PagamentoPorCartao testeCartao = (PagamentoPorCartao) compraControlador.buscarCompra(1).getPagamento();
+        System.out.println(testeCartao.getNumero());
+        System.out.println(testeCartao.getParcelas().get(5).getValorParcela()+" -> valor das parcelas");
+        System.out.println(testeCartao.getParcelas().get(5).isPaga()+" -> Está paga?");
+        System.out.println(testeCartao.getParcelas().get(5).getVencimento());
+        System.out.println(compraControlador.buscarCompra(1).getCliente().getNome()+" Cliente comprador");
+        System.out.println(clienteControlador.buscarCliente(0).getCompras().get(1).getProdutos().size()+" -> N de produtos na compra 2 do comprador");
     }
 }

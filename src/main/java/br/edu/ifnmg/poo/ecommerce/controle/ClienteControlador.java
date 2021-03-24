@@ -26,4 +26,8 @@ public class ClienteControlador {
     public Cliente buscarCliente(int id) {
         return ClienteDAO.buscarCliente(id);
     }
+    
+    public static boolean editarCliente(int id, Cliente cliente) {
+        return ClienteDAO.editarCliente(id, cliente);
+    }
 }

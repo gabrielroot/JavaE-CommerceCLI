@@ -43,4 +43,16 @@ public class ClienteDAO {
         }
         return encontrado;
     }
+    
+        public static boolean editarCliente(int id, Cliente client) {
+        Cliente encontrado = null;
+        for(Cliente cliente : clientes){
+            if(cliente.getId() == id){
+                encontrado = client;
+                return true;
+            }
+        }
+        
+        return false;
+    }
 }

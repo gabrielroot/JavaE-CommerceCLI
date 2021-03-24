@@ -14,11 +14,21 @@ import java.util.ArrayList;
 public class Cliente extends Usuario{
     ArrayList<EnderecoEntrega> enderecosEntrega = new ArrayList<>();
     ArrayList<Produto> carrinho = new ArrayList<>();
+    ArrayList<Compra> compras = new ArrayList<>();
     
     public Cliente(String nome, String email, String senha, String cpf) {
         super(nome, email, senha, cpf);
     }
 
+    public ArrayList<Compra> getCompras() {
+        return compras;
+    }
+
+    public void setCompras(ArrayList<Compra> compras) {
+        this.compras = compras;
+    }
+
+    
     public ArrayList<EnderecoEntrega> getEnderecosEntrega() {
         return enderecosEntrega;
     }
