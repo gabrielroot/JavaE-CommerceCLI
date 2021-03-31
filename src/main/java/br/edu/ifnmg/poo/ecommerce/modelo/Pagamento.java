@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
  *
  * @author gabriel
  */
-public class Pagamento {
+public abstract class Pagamento {
     private String nome;
     private LocalDateTime data;
 

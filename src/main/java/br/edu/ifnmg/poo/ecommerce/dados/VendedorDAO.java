@@ -55,4 +55,14 @@ public class VendedorDAO {
         }
         return false;
     }
+    
+    public static boolean removerVendedor(Vendedor vendedor){
+        for(Vendedor vend : vendedores){
+            if(vendedor.equals(vend)){
+                vendedores.remove(vendedor);
+                return true;
+            }
+        }
+        return false;
+    }
 }

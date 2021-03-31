@@ -29,4 +29,8 @@ public class ProdutoControlador {
     public boolean editarProduto(int id, Produto produto) {
         return ProdutoDAO.editarProduto(id, produto);
     }
+    
+    public boolean removerProduto(Produto produto) {
+        return ProdutoDAO.removerProduto(produto);
+    }
 }

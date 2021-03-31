@@ -30,4 +30,8 @@ public class ClienteControlador {
     public static boolean editarCliente(int id, Cliente cliente) {
         return ClienteDAO.editarCliente(id, cliente);
     }
+        
+    public boolean removerCliente(Cliente cliente) {
+        return ClienteDAO.removerCliente(cliente);
+    }
 }

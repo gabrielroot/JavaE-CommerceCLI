@@ -5,11 +5,13 @@
  */
 package br.edu.ifnmg.poo.ecommerce.apresentacao;
 
+import br.edu.ifnmg.poo.ecommerce.controle.AdminControlador;
 import br.edu.ifnmg.poo.ecommerce.controle.ClienteControlador;
 import br.edu.ifnmg.poo.ecommerce.controle.ProdutoControlador;
 import br.edu.ifnmg.poo.ecommerce.controle.VendedorControlador;
 import br.edu.ifnmg.poo.ecommerce.controle.ComentarioControlador;
 import br.edu.ifnmg.poo.ecommerce.controle.CompraControlador;
+import br.edu.ifnmg.poo.ecommerce.modelo.Admin;
 import br.edu.ifnmg.poo.ecommerce.modelo.Cliente;
 import br.edu.ifnmg.poo.ecommerce.modelo.Comentario;
 import br.edu.ifnmg.poo.ecommerce.modelo.Compra;
@@ -42,7 +44,7 @@ public class Main {
         testarCliente();
         testarComentario();
         testarCompra();
-        
+        testarAdmin();
     }
     
         public static void testarCliente(){
@@ -151,13 +153,13 @@ public class Main {
         ClienteControlador clienteControlador = new ClienteControlador();
         CompraControlador compraControlador = new CompraControlador();
         ProdutoControlador produtoControlador = new ProdutoControlador();
-        PagamentoPorBoleto pagamentoPorBoleto = new PagamentoPorBoleto("cpf", 0, "codBarra", LocalDateTime.of(2021, 4, 20, 0, 0), "nome");
+        PagamentoPorBoleto pagamentoPorBoleto = new PagamentoPorBoleto("cpf", 10, "codBarra", "nome");
         PagamentoPorCartao pagamentoPorCartao = new PagamentoPorCartao("NomePagamento","Númerocatao23434", "codSeguranca112", 12);
         
-        Compra compra = new Compra(pagamentoPorBoleto, produtoControlador.listarProdutos(), clienteControlador.buscarCliente(0));
-        Compra compra2 = new Compra(pagamentoPorCartao, produtoControlador.listarProdutos(), clienteControlador.buscarCliente(0));
-        compraControlador.cadastrarCompra(compra);
-        compraControlador.cadastrarCompra(compra2);
+        Compra compraBoleto = new Compra(pagamentoPorBoleto, produtoControlador.listarProdutos(), clienteControlador.buscarCliente(0));
+        Compra compraCartao = new Compra(pagamentoPorCartao, produtoControlador.listarProdutos(), clienteControlador.buscarCliente(0));
+        compraControlador.cadastrarCompra(compraBoleto);
+        compraControlador.cadastrarCompra(compraCartao);
         
         for(Produto produto:compraControlador.buscarCompra(0).getProdutos()){
             System.out.println(produto.getDescricao()+" <- Produtos da compra ");
@@ -169,5 +171,62 @@ public class Main {
         System.out.println(testeCartao.getParcelas().get(5).getVencimento());
         System.out.println(compraControlador.buscarCompra(1).getCliente().getNome()+" Cliente comprador");
         System.out.println(clienteControlador.buscarCliente(0).getCompras().get(1).getProdutos().size()+" -> N de produtos na compra 2 do comprador");
+    
+        PagamentoPorBoleto testeBoleto = (PagamentoPorBoleto) compraControlador.buscarCompra(0).getPagamento();
+        System.out.println(testeBoleto.getCpf());
+        System.out.println(testeBoleto.getValor());
+        System.out.println(testeBoleto.getVencimento());
+        System.out.println(testeBoleto.isPago()+" -> Está pago?");
+        testeBoleto.pagarBoleto();
+        System.out.println(testeBoleto.isPago()+" -> Está pago?");
+    }
+
+    private static void testarAdmin() {
+        AdminControlador adminControlador = new AdminControlador();
+        ProdutoControlador produtoControlador = new ProdutoControlador();
+        ClienteControlador clienteControlador = new ClienteControlador();
+        VendedorControlador vendedorControlador = new VendedorControlador();
+        
+        ArrayList<Produto> produtosDeletados = new ArrayList<>();
+        
+        produtosDeletados.add(produtoControlador.buscarProduto(0));
+        
+        Admin admin = new Admin("nomeAdmin", "emailAdmin", "senhaAdmin", "cpfAdmin");
+        adminControlador.cadastrarAdmin(admin);
+        System.out.println(adminControlador.buscarAdmin(0).getProdutosDeletados());
+        admin.setProdutosDeletados(produtosDeletados);
+        adminControlador.editarAdmin(0, admin);
+        System.out.println(adminControlador.buscarAdmin(0).getProdutosDeletados().get(0).getNome()+" - Produto deletado pelo admin");
+
+        
+        ArrayList<Cliente> clientesDeletados = new ArrayList<>();
+        
+        clientesDeletados.add(clienteControlador.buscarCliente(0));
+        admin.setClientesDeletados(clientesDeletados);
+        adminControlador.editarAdmin(0, admin);
+        System.out.println(adminControlador.buscarAdmin(0).getClientesDeletados().get(0).getNome()+" - Cliente deletado pelo admin");
+        
+        
+        ArrayList<Vendedor> vendedoresDeletados = new ArrayList<>();
+        
+        vendedoresDeletados.add(vendedorControlador.buscarVendedor(0));
+        admin.setVendedoresDeletados(vendedoresDeletados);
+        adminControlador.editarAdmin(0, admin);
+        System.out.println(adminControlador.buscarAdmin(0).getVendedoresDeletados().get(0).getNome()+" - Vendedor deletado pelo admin");
+        
+        System.out.println("");
+        
+        for(Produto produto : produtoControlador.listarProdutos()){
+            System.out.println(produto.getNome()+" - Produto restante");
+        }
+        for(Cliente cliente : clienteControlador.listarClientes()){
+            System.out.println(cliente.getNome()+" - cliente restante");
+        }
+        for(Vendedor vendedor : vendedorControlador.listarVendedores()){
+            System.out.println(vendedor.getNome()+" - Vendedor restante");
+        }
+        
+        Admin admin2 = new Admin("nome", "email", "senha", "cpf");
+        admin.addAdmin(admin2);
     }
 }

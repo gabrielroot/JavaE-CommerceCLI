@@ -29,4 +29,8 @@ public class VendedorControlador {
     public boolean editarVendedor(int id, Vendedor vendedor) {
         return VendedorDAO.editarVendedor(id, vendedor);
     }
+    
+    public boolean removerVendedor(Vendedor vendedor) {
+        return VendedorDAO.removerVendedor(vendedor);
+    }
 }

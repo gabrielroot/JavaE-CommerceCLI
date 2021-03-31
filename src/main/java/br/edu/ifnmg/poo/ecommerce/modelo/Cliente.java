@@ -51,12 +51,4 @@ public class Cliente extends Usuario{
         EnderecoEntrega endereco = new EnderecoEntrega(nome, cep, estado, cidade, bairro, ruaAv);
         this.enderecosEntrega.add(endereco);
     }
-    
-//    public void addItemCarrinho(int id){
-//   
-//    Produto produto = new Produto(nome, descricao, estoque, preco, categoria);
-//        this.produtos.add(produto);
-//    }
-    
-    
 }

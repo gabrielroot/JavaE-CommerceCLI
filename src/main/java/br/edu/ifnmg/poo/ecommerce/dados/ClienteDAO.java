@@ -52,7 +52,16 @@ public class ClienteDAO {
                 return true;
             }
         }
+        return false;
+    }
         
+        public static boolean removerCliente(Cliente cliente){
+        for(Cliente prod : clientes){
+            if(cliente.equals(prod)){
+                clientes.remove(cliente);
+                return true;
+            }
+        }
         return false;
     }
 }

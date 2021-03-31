@@ -48,4 +48,14 @@ public class ProdutoDAO {
         
         return false;
     }
+    
+    public static boolean removerProduto(Produto produto){
+        for(Produto prod : produtos){
+            if(produto.equals(prod)){
+                produtos.remove(produto);
+                return true;
+            }
+        }
+        return false;
+    }
 }

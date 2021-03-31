@@ -12,19 +12,34 @@ import java.time.LocalDateTime;
  * @author gabriel
  */
 public class PagamentoPorBoleto extends Pagamento{
+    private int id;
     private String cpf;
     private double valor;
     private String codBarra;
     private LocalDateTime vencimento;
     private boolean pago;
 
-    public PagamentoPorBoleto(String cpf, double valor, String codBarra, LocalDateTime vencimento, String nome) {
+    public PagamentoPorBoleto(String cpf, double valor, String codBarra, String nome) {
         super(nome);
         this.cpf = cpf;
         this.valor = valor;
         this.codBarra = codBarra;
-        this.vencimento = vencimento;
+        this.vencimento = java.time.LocalDateTime.now().plusDays(2);
         this.pago = false;
+    }
+    
+    public boolean pagarBoleto(){
+        this.pago = true;
+        
+        return true;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getCpf() {
@@ -66,6 +81,4 @@ public class PagamentoPorBoleto extends Pagamento{
     public void setPago(boolean pago) {
         this.pago = pago;
     }
-    
-    
 }

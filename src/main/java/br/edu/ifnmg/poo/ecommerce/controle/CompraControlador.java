@@ -33,8 +33,9 @@ public class CompraControlador {
             pagamentoPorCartaoControlador.parcelar(pagamentoPorCartao, compra);
         }else if(compra.getPagamento() instanceof PagamentoPorBoleto){
             System.out.println("Pagou via boleto");
-//            PagamentoPorBoletoControlador pagamentoPorBoletoControlador = new PagamentoPorBoletoControlador(cpf, 0, codBarra, java.time.LocalDateTime.MIN, nome)
-            //TODO
+            PagamentoPorBoletoControlador pagamentoPorBoletoControlador = new PagamentoPorBoletoControlador();
+            PagamentoPorBoleto pagamentoPorBoleto = (PagamentoPorBoleto) compra.getPagamento();
+            pagamentoPorBoletoControlador.cadastrarPagamentoPorBoleto(pagamentoPorBoleto);
         }
     }
     

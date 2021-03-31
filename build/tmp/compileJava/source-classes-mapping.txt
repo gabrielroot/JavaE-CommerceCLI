@@ -6,8 +6,8 @@ br/edu/ifnmg/poo/ecommerce/modelo/Comentario.java
  br.edu.ifnmg.poo.ecommerce.modelo.Comentario
 br/edu/ifnmg/poo/ecommerce/modelo/EnderecoEntrega.java
  br.edu.ifnmg.poo.ecommerce.modelo.EnderecoEntrega
-br/edu/ifnmg/poo/ecommerce/modelo/PagamentoPorCartao.java
- br.edu.ifnmg.poo.ecommerce.modelo.PagamentoPorCartao
+br/edu/ifnmg/poo/ecommerce/dados/ProdutoDAO.java
+ br.edu.ifnmg.poo.ecommerce.dados.ProdutoDAO
 br/edu/ifnmg/poo/ecommerce/controle/EnderecoEntregaControlador.java
  br.edu.ifnmg.poo.ecommerce.controle.EnderecoEntregaControlador
 br/edu/ifnmg/poo/ecommerce/modelo/Vendedor.java
@@ -18,41 +18,51 @@ br/edu/ifnmg/poo/ecommerce/dados/ComentarioDAO.java
  br.edu.ifnmg.poo.ecommerce.dados.ComentarioDAO
 br/edu/ifnmg/poo/ecommerce/modelo/Produto.java
  br.edu.ifnmg.poo.ecommerce.modelo.Produto
-br/edu/ifnmg/poo/ecommerce/dados/VendedorDAO.java
- br.edu.ifnmg.poo.ecommerce.dados.VendedorDAO
-br/edu/ifnmg/poo/ecommerce/controle/VendedorControlador.java
- br.edu.ifnmg.poo.ecommerce.controle.VendedorControlador
-br/edu/ifnmg/poo/ecommerce/controle/ProdutoControlador.java
- br.edu.ifnmg.poo.ecommerce.controle.ProdutoControlador
-br/edu/ifnmg/poo/ecommerce/dados/ProdutoDAO.java
- br.edu.ifnmg.poo.ecommerce.dados.ProdutoDAO
+br/edu/ifnmg/poo/ecommerce/controle/PagamentoPorBoletoControlador.java
+ br.edu.ifnmg.poo.ecommerce.controle.PagamentoPorBoletoControlador
 br/edu/ifnmg/poo/ecommerce/dados/PagamentoPorCartaoDAO.java
  br.edu.ifnmg.poo.ecommerce.dados.PagamentoPorCartaoDAO
+br/edu/ifnmg/poo/ecommerce/dados/PagamentoPorBoletoDAO.java
+ br.edu.ifnmg.poo.ecommerce.dados.PagamentoPorBoletoDAO
+br/edu/ifnmg/poo/ecommerce/modelo/PagamentoPorBoleto.java
+ br.edu.ifnmg.poo.ecommerce.modelo.PagamentoPorBoleto
+br/edu/ifnmg/poo/ecommerce/modelo/Pagamento.java
+ br.edu.ifnmg.poo.ecommerce.modelo.Pagamento
 br/edu/ifnmg/poo/ecommerce/dados/PagamentoDAO.java
  br.edu.ifnmg.poo.ecommerce.dados.PagamentoDAO
 br/edu/ifnmg/poo/ecommerce/controle/ParcelaControlador.java
  br.edu.ifnmg.poo.ecommerce.controle.ParcelaControlador
 br/edu/ifnmg/poo/ecommerce/modelo/Parcela.java
  br.edu.ifnmg.poo.ecommerce.modelo.Parcela
-br/edu/ifnmg/poo/ecommerce/modelo/Pagamento.java
- br.edu.ifnmg.poo.ecommerce.modelo.Pagamento
-br/edu/ifnmg/poo/ecommerce/modelo/PagamentoPorBoleto.java
- br.edu.ifnmg.poo.ecommerce.modelo.PagamentoPorBoleto
+br/edu/ifnmg/poo/ecommerce/controle/ProdutoControlador.java
+ br.edu.ifnmg.poo.ecommerce.controle.ProdutoControlador
+br/edu/ifnmg/poo/ecommerce/modelo/PagamentoPorCartao.java
+ br.edu.ifnmg.poo.ecommerce.modelo.PagamentoPorCartao
 br/edu/ifnmg/poo/ecommerce/dados/ParcelaDAO.java
  br.edu.ifnmg.poo.ecommerce.dados.ParcelaDAO
-br/edu/ifnmg/poo/ecommerce/controle/ClienteControlador.java
- br.edu.ifnmg.poo.ecommerce.controle.ClienteControlador
-br/edu/ifnmg/poo/ecommerce/controle/PagamentoPorCartaoControlador.java
- br.edu.ifnmg.poo.ecommerce.controle.PagamentoPorCartaoControlador
-br/edu/ifnmg/poo/ecommerce/dados/CompraDAO.java
- br.edu.ifnmg.poo.ecommerce.dados.CompraDAO
+br/edu/ifnmg/poo/ecommerce/controle/CompraControlador.java
+ br.edu.ifnmg.poo.ecommerce.controle.CompraControlador
+br/edu/ifnmg/poo/ecommerce/dados/AdminDAO.java
+ br.edu.ifnmg.poo.ecommerce.dados.AdminDAO
 br/edu/ifnmg/poo/ecommerce/modelo/Cliente.java
  br.edu.ifnmg.poo.ecommerce.modelo.Cliente
 br/edu/ifnmg/poo/ecommerce/modelo/Compra.java
  br.edu.ifnmg.poo.ecommerce.modelo.Compra
 br/edu/ifnmg/poo/ecommerce/dados/ClienteDAO.java
  br.edu.ifnmg.poo.ecommerce.dados.ClienteDAO
-br/edu/ifnmg/poo/ecommerce/controle/CompraControlador.java
- br.edu.ifnmg.poo.ecommerce.controle.CompraControlador
+br/edu/ifnmg/poo/ecommerce/dados/CompraDAO.java
+ br.edu.ifnmg.poo.ecommerce.dados.CompraDAO
+br/edu/ifnmg/poo/ecommerce/dados/VendedorDAO.java
+ br.edu.ifnmg.poo.ecommerce.dados.VendedorDAO
+br/edu/ifnmg/poo/ecommerce/controle/PagamentoPorCartaoControlador.java
+ br.edu.ifnmg.poo.ecommerce.controle.PagamentoPorCartaoControlador
+br/edu/ifnmg/poo/ecommerce/controle/AdminControlador.java
+ br.edu.ifnmg.poo.ecommerce.controle.AdminControlador
+br/edu/ifnmg/poo/ecommerce/modelo/Admin.java
+ br.edu.ifnmg.poo.ecommerce.modelo.Admin
+br/edu/ifnmg/poo/ecommerce/controle/VendedorControlador.java
+ br.edu.ifnmg.poo.ecommerce.controle.VendedorControlador
+br/edu/ifnmg/poo/ecommerce/controle/ClienteControlador.java
+ br.edu.ifnmg.poo.ecommerce.controle.ClienteControlador
 br/edu/ifnmg/poo/ecommerce/apresentacao/Main.java
  br.edu.ifnmg.poo.ecommerce.apresentacao.Main

@@ -44,8 +44,8 @@ public class PagamentoPorCartaoControlador {
         ArrayList<Parcela> parcelas = new ArrayList<>();
         
         for (int i = 0; i < pagamentoPorCartao.getNumeroParcelas(); i++) {
-            Parcela parcela = new Parcela(hoje, valorParcela);
             hoje = hoje.plusDays(30);
+            Parcela parcela = new Parcela(hoje, valorParcela);
             parcelaDAO.adicionarParcela(parcela);
             parcelas.add(parcela);
         }
