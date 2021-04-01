@@ -5,7 +5,9 @@
  */
 package br.edu.ifnmg.poo.ecommerce.dados;
 
+import br.edu.ifnmg.poo.ecommerce.controle.ProdutoControlador;
 import br.edu.ifnmg.poo.ecommerce.modelo.Compra;
+import br.edu.ifnmg.poo.ecommerce.modelo.Produto;
 import java.util.ArrayList;
 
 /**
@@ -21,6 +23,12 @@ public class CompraDAO {
     }
     
     public static void adicionarCompra(Compra compra){
+        ProdutoControlador produtoControlador = new ProdutoControlador();
+        for(Produto produtoComprado: compra.getProdutos()){
+            Produto produto = produtoControlador.buscarProduto(produtoComprado.getId());
+            produto.setEstoque(produto.getEstoque() - 1);
+            produtoControlador.editarProduto(produto.getId(), produto);
+        }
         compra.setId(genId);
         compras.add(compra);
         genId ++;

@@ -21,33 +21,182 @@ import br.edu.ifnmg.poo.ecommerce.modelo.PagamentoPorCartao;
 import br.edu.ifnmg.poo.ecommerce.modelo.Produto;
 import br.edu.ifnmg.poo.ecommerce.modelo.Usuario;
 import br.edu.ifnmg.poo.ecommerce.modelo.Vendedor;
-import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
  * @author gabriel
  */
 public class Main {
+    private static Usuario SESSAO = null;
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-//        do {            
-//            System.out.println("======== E-Commerce ========");
-//            System.out.println("1 - Cadastros");
-//            System.out.println("");
-//        } while (true);
         testarVendedor();
         testarCliente();
         testarComentario();
         testarCompra();
         testarAdmin();
+        
+        int key = -1;
+        Scanner scanner = new Scanner(System.in);
+        
+        while(key != 0){
+            System.out.println("============= E-Commerce =============");
+            if(SESSAO == null){
+                System.out.println("1 - Logar()");
+                System.out.println("2 - Cadastrar()");
+                System.out.println("0 - Encerrar Programa()");
+
+                key = Integer.parseInt(scanner.nextLine());
+                if(key == 1){
+                    login();
+                }
+                if(key == 2){
+                    cadastrar();
+                }
+                if(key == 0){
+                    break;
+                }
+            }else if(SESSAO instanceof Cliente){
+                Cliente clienteLogado = (Cliente) SESSAO;
+                System.out.println("        Bem Vindo(a), "+clienteLogado.getNome()+"!\n");
+                ProdutoControlador produtoControlador = new ProdutoControlador();
+                ClienteControlador clienteControlador = new ClienteControlador();
+                
+                painelCliente();
+                int option = Integer.parseInt(scanner.nextLine());
+                
+                if(option == 1){
+                        System.out.println("            Produtos");
+                        System.out.println("------------------------------------------");
+                    for(Produto produto : produtoControlador.listarProdutos()){
+                        System.out.println("    ID: "+produto.getId());
+                        System.out.println("    Nome: "+produto.getNome());
+                        System.out.println("    -------------------------------");
+                    }
+                        System.out.println("------------------------------------------");
+                    
+                }
+                if(option == 2){
+                    System.out.println("Informe o id do produto:");
+                    int id = Integer.parseInt(scanner.nextLine());
+                    Produto produto = produtoControlador.buscarProduto(id);
+                    System.out.println("            "+produto.getNome());
+                    System.out.println("    -------------------------------");
+                    System.out.println("    ID: "+produto.getId());
+                    System.out.println("    Descrição: "+produto.getDescricao());
+                    System.out.println("    Preco: "+produto.getPreco());
+                    System.out.println("    Quantidade: "+produto.getEstoque());
+                    System.out.println("    Categoria: "+produto.getCategoria());
+                    System.out.println("    Avaliação: "+produto.getAvaliacao());
+                    System.out.println("    -------------------------------");
+                    System.out.println("Ver comentarios? (S/N)");
+                    char bool = scanner.nextLine().charAt(0);
+                    if(bool == 's' || bool == 'S'){
+                        ComentarioControlador comentarioControlador = new ComentarioControlador();
+                        ArrayList<Comentario> comentarios = comentarioControlador.buscarComentariosPorProduto(produto);
+                            System.out.println("                Comentarios");
+                        System.out.println("    ------------------------------------------");
+                        for(Comentario comentario : comentarios){
+                            System.out.println("        Título: "+comentario.getTitulo());
+                            System.out.println("        Autor: "+comentario.getUsuario().getNome());
+                            System.out.println("        Mensagem:"+comentario.getMensagem());
+                            System.out.println("        Data/Hora: "+comentario.getData().getYear()+"/"+comentario.getData().getMonth()+"/"+
+                                    comentario.getData().getDayOfMonth()+" - "+comentario.getData().getHour()+"h:"+comentario.getData().getMinute());
+                            System.out.println("        -------------------------------");
+                        }
+                    }
+                    System.out.println("Comentar? (S/N)");
+                    bool = scanner.nextLine().charAt(0);
+                    if(bool == 's' || bool == 'S'){
+                        System.out.print("    Titulo do Comentario: ");
+                        String titulo = scanner.nextLine();
+                        System.out.print("    Mensagem do Comentario: ");
+                        String mensagem = scanner.nextLine();
+                        Comentario comentario = new Comentario(titulo, mensagem, produto, clienteLogado);
+                        ComentarioControlador comentarioControlador = new ComentarioControlador();
+                        comentarioControlador.cadastrarComentario(comentario);
+                    }
+                }
+                if(option == 3){
+                    CompraControlador compraControlador = new CompraControlador();
+                    ArrayList<Produto> produtos = new ArrayList<>();
+                    int id = -1;
+                    while(id != 0){
+                        for(Produto produto : produtoControlador.listarProdutos()){
+                            System.out.println("    ID: "+produto.getId());
+                            System.out.println("    Nome: "+produto.getNome());
+                        }
+
+                        System.out.println("Id do produto que deseja: (0 para finalizar)");
+                        id = Integer.parseInt(scanner.nextLine());
+                        if(id != 0){
+                            System.out.println("Quantidade");
+                            int qtde = Integer.parseInt(scanner.nextLine());
+                            Produto produto = produtoControlador.buscarProduto(id);
+                            if(produto != null){
+                                if(produto.getEstoque() >= qtde){
+                                    for(int i=0;i<qtde;i++){
+                                        produtos.add(produto);
+                                        produto.setEstoque(produto.getEstoque()-1);
+                                    }
+                                }else{
+                                    System.out.println("Falha: Quantidade em estoque é insuficiente.");
+                                }
+                            }
+                        }
+                    }
+                    
+                    clienteLogado.setCarrinho(produtos);
+                    clienteControlador.editarCliente(clienteLogado.getId(), clienteLogado);
+                    
+                    System.out.println("Informe o método de pagamento:");
+                    System.out.println("1 - Cartão");
+                    System.out.println("2 - Boleto");
+                    int metodoPagamento = Integer.parseInt(scanner.nextLine());
+                    
+                    Compra compra = null;
+                    
+                    if(metodoPagamento == 1){
+                        System.out.println("Nome para o cartão:");
+                        System.out.println("Número do cartão:");
+                        System.out.println("Código de Segurança:");
+                        PagamentoPorCartao pagamentoPorCartao = new PagamentoPorCartao("NomePagamento","Númerocatao23434", "codSeguranca112", 12);
+                        compra = new Compra(pagamentoPorCartao, clienteLogado.getCarrinho(), clienteLogado);
+                        System.out.println("Compra realizada!!");
+                        System.out.println("Primeira parcela vence em:");
+                        System.out.println("Valor das parcelas:");
+                    }else if(metodoPagamento == 2){
+                        System.out.println("Nome do pagador:");
+                        System.out.println("CPF:");
+                        String codBarra = "231047543719457";
+                        
+                        double valorTotal = 0;
+                        for(Produto produto:clienteLogado.getCarrinho()){
+                            valorTotal += produto.getPreco();
+                        }
+                        
+                        PagamentoPorBoleto pagamentoPorBoleto = new PagamentoPorBoleto("cpf", valorTotal, codBarra, "nome");
+                        compra = new Compra(pagamentoPorBoleto, clienteLogado.getCarrinho(), clienteLogado);
+                    }
+                    
+                    compraControlador.cadastrarCompra(compra);
+                    produtos.clear();
+                    clienteLogado.setCarrinho(produtos);
+                    clienteControlador.editarCliente(clienteLogado.getId(), clienteLogado);
+                }
+                if(option == 0){
+                    break;
+                }
+            }
+        }
     }
     
-        public static void testarCliente(){
+    public static void testarCliente(){
         Cliente cliente = new Cliente("Felipe", "ff@g.com", "76432", "000.000.000-12");
         Cliente cliente2 = new Cliente("Gabriel", "gg@g.com", "1233", "000.000.000-12");
         EnderecoEntrega endereco01 = new EnderecoEntrega("Felipe", "38.340-999", "SP", "Guarulhos", "desconhecido", "rua 1");
@@ -108,9 +257,11 @@ public class Main {
         
         Produto produto = new Produto("nomeProduto1", "descricaoProduto", 10, 120.50, "categoriaProduto");
         Produto produto2 = new Produto("nomeProduto2", "descricaoProduto", 10, 120.50, "categoriaProduto");
+        Produto produto3 = new Produto("nomeProduto3", "descricaoProduto", 10, 120.50, "categoriaProduto");
         ArrayList<Produto> produtos = new ArrayList<>();
         produtos.add(produto);
         produtos.add(produto2);
+        produtos.add(produto3);
         
         vend.setProdutos(produtos);
         vendedorControlador.editarVendedor(0,vend);
@@ -228,5 +379,41 @@ public class Main {
         
         Admin admin2 = new Admin("nome", "email", "senha", "cpf");
         admin.addAdmin(admin2);
+    }
+
+    private static void login() {
+        System.out.println("Seu email:...");
+        System.out.println("Sua senha:...");
+        SESSAO = new Cliente("nome", "email", "senha", "cpf");
+    }
+
+    private static void cadastrar() {
+        System.out.println("Cliente ou Vendedor?");
+        System.out.println("nome");
+        System.out.println("email");
+        System.out.println("senha");
+        System.out.println("cpf");
+        
+        System.out.println("cadastrar endereco?");
+        System.out.println("    Nome");
+        System.out.println("    Cep");
+        System.out.println("    estado");
+        System.out.println("    cidade");
+        System.out.println("    bairro");
+        System.out.println("    Rua/Avenida");
+        
+        System.out.println("cadastrar produto?");
+        System.out.println("    nome");
+        System.out.println("    descricao");
+        System.out.println("    estoque");
+        System.out.println("    preco");
+        System.out.println("    categoria");
+    }
+    
+    private static void painelCliente(){
+        System.out.println("1 - Listar Produtos()");
+        System.out.println("2 - Detalhar Produto()");
+        System.out.println("3 - Comprar Item()");
+        System.out.println("4 - Histórico de Compras()");
     }
 }

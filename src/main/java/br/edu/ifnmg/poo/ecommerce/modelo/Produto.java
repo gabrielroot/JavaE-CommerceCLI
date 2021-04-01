@@ -18,10 +18,10 @@ public class Produto {
     private String categoria;
     private double avaliacao;
 
-    public Produto(String nome, String descricao, int estoque, double preco, String categoria) {
+    public Produto(String nome, String descricao, int estoqueProduto, double preco, String categoria) {
         this.nome = nome;
         this.descricao = descricao;
-        this.estoque = estoque;
+        estoque = estoqueProduto;
         this.preco = preco;
         this.categoria = categoria;
         this.avaliacao = 0;
