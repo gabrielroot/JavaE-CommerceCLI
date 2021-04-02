@@ -11,6 +11,8 @@ import br.edu.ifnmg.poo.ecommerce.controle.ProdutoControlador;
 import br.edu.ifnmg.poo.ecommerce.controle.VendedorControlador;
 import br.edu.ifnmg.poo.ecommerce.controle.ComentarioControlador;
 import br.edu.ifnmg.poo.ecommerce.controle.CompraControlador;
+import br.edu.ifnmg.poo.ecommerce.controle.PagamentoPorBoletoControlador;
+import br.edu.ifnmg.poo.ecommerce.controle.PagamentoPorCartaoControlador;
 import br.edu.ifnmg.poo.ecommerce.modelo.Admin;
 import br.edu.ifnmg.poo.ecommerce.modelo.Cliente;
 import br.edu.ifnmg.poo.ecommerce.modelo.Comentario;
@@ -76,6 +78,7 @@ public class Main {
                     for(Produto produto : produtoControlador.listarProdutos()){
                         System.out.println("    ID: "+produto.getId());
                         System.out.println("    Nome: "+produto.getNome());
+                        System.out.println("    Quantidade: "+produto.getEstoque());
                         System.out.println("    -------------------------------");
                     }
                         System.out.println("------------------------------------------");
@@ -126,12 +129,15 @@ public class Main {
                     CompraControlador compraControlador = new CompraControlador();
                     ArrayList<Produto> produtos = new ArrayList<>();
                     int id = -1;
+                    for(Produto produto : produtoControlador.listarProdutos()){
+                        System.out.println("-----------------------------------");
+                        System.out.println("            "+produto.getNome());
+                        System.out.println("    -------------------------------");
+                        System.out.println("    ID: "+produto.getId());
+                        System.out.println("    Preco: "+produto.getPreco());
+                        System.out.println("    Quantidade: "+produto.getEstoque());
+                    }
                     while(id != 0){
-                        for(Produto produto : produtoControlador.listarProdutos()){
-                            System.out.println("    ID: "+produto.getId());
-                            System.out.println("    Nome: "+produto.getNome());
-                        }
-
                         System.out.println("Id do produto que deseja: (0 para finalizar)");
                         id = Integer.parseInt(scanner.nextLine());
                         if(id != 0){
@@ -142,7 +148,6 @@ public class Main {
                                 if(produto.getEstoque() >= qtde){
                                     for(int i=0;i<qtde;i++){
                                         produtos.add(produto);
-                                        produto.setEstoque(produto.getEstoque()-1);
                                     }
                                 }else{
                                     System.out.println("Falha: Quantidade em estoque é insuficiente.");
@@ -150,7 +155,8 @@ public class Main {
                             }
                         }
                     }
-                    
+                    if(produtos.size()>0){
+                        
                     clienteLogado.setCarrinho(produtos);
                     clienteControlador.editarCliente(clienteLogado.getId(), clienteLogado);
                     
@@ -162,17 +168,37 @@ public class Main {
                     Compra compra = null;
                     
                     if(metodoPagamento == 1){
-                        System.out.println("Nome para o cartão:");
-                        System.out.println("Número do cartão:");
-                        System.out.println("Código de Segurança:");
-                        PagamentoPorCartao pagamentoPorCartao = new PagamentoPorCartao("NomePagamento","Númerocatao23434", "codSeguranca112", 12);
+                        System.out.print("Nome para o cartão: ");
+                        String nome = scanner.nextLine();
+                        System.out.print("Número do cartão: ");
+                        String numero = scanner.nextLine();
+                        System.out.print("Código de Segurança: ");
+                        String codSeguranca = scanner.nextLine();
+                        System.out.print("Deseja parcelar? (S/N)");
+                        char bool = scanner.nextLine().charAt(0);
+                        int numeroParcelas = 1;
+                        if(bool == 's' || bool == 'S'){
+                            while(numeroParcelas > 12 || numeroParcelas == 1){
+                                System.out.println("Quantas parcelas? (MÁX = 12)");
+                                numeroParcelas = Integer.parseInt(scanner.nextLine());
+                            }
+                        }
+                        PagamentoPorCartao pagamentoPorCartao = new PagamentoPorCartao(nome,numero, codSeguranca, numeroParcelas);
                         compra = new Compra(pagamentoPorCartao, clienteLogado.getCarrinho(), clienteLogado);
-                        System.out.println("Compra realizada!!");
-                        System.out.println("Primeira parcela vence em:");
-                        System.out.println("Valor das parcelas:");
+                        System.out.println("                Compra realizada!!");
+                        PagamentoPorCartaoControlador pagamentoPorCartaoControlador = new PagamentoPorCartaoControlador();
+                        pagamentoPorCartaoControlador.cadastrarPagamentoPorCartao(pagamentoPorCartao);
+                        pagamentoPorCartaoControlador.parcelar(pagamentoPorCartao, compra);
+                        PagamentoPorCartao dadosPagamento = pagamentoPorCartaoControlador.buscarPagamentoPorCartao(pagamentoPorCartao.getId());
+                        
+                        System.out.println("Primeira parcela vence em: "+dadosPagamento.getParcelas().get(0).getVencimento().getDayOfMonth()+"/"+
+                                dadosPagamento.getParcelas().get(0).getVencimento().getMonth());
+                        System.out.printf("Valor das parcelas: %.2f\n",dadosPagamento.getParcelas().get(0).getValorParcela());
                     }else if(metodoPagamento == 2){
                         System.out.println("Nome do pagador:");
+                        String nome = scanner.nextLine();
                         System.out.println("CPF:");
+                        String cpf = scanner.nextLine();
                         String codBarra = "231047543719457";
                         
                         double valorTotal = 0;
@@ -180,17 +206,42 @@ public class Main {
                             valorTotal += produto.getPreco();
                         }
                         
-                        PagamentoPorBoleto pagamentoPorBoleto = new PagamentoPorBoleto("cpf", valorTotal, codBarra, "nome");
+                        PagamentoPorBoleto pagamentoPorBoleto = new PagamentoPorBoleto(cpf, valorTotal, codBarra, nome);
+                        PagamentoPorBoletoControlador pagamentoPorBoletoControlador = new PagamentoPorBoletoControlador();
+                        pagamentoPorBoletoControlador.cadastrarPagamentoPorBoleto(pagamentoPorBoleto);
                         compra = new Compra(pagamentoPorBoleto, clienteLogado.getCarrinho(), clienteLogado);
+                        
+                        System.out.println("    Valor do boleto: "+pagamentoPorBoleto.getValor());
+                        System.out.println("    Vencimento: "+pagamentoPorBoleto.getVencimento().getDayOfMonth()+"/"+
+                                pagamentoPorBoleto.getVencimento().getMonth());
+                        System.out.println("                Compra realizada!!");
                     }
                     
                     compraControlador.cadastrarCompra(compra);
                     produtos.clear();
                     clienteLogado.setCarrinho(produtos);
                     clienteControlador.editarCliente(clienteLogado.getId(), clienteLogado);
+                    }else{
+                        System.out.println("        Carrinho Vazio. Compra não realizada");
+                    }
+                }else if(option == 4){
+                    System.out.println("    Está paga?:");
+                    System.out.println("    Número de produtos:");
+                    System.out.println("    Método de Pagamnto");
+                    System.out.println("        Número de parcelas");
+                    System.out.println("    Valor Total:");
+                    
+                    System.out.println("    Pagar Compra?");
+                    
+                    System.out.println("    Detalhar compra?");
+                    System.out.println("        Produtos:");
+                    System.out.println("            Nome:");
+                    System.out.println("            Preco:");
+                    System.out.println("        N de parcelas pagas:");
+                    System.out.println("        Próxima parcela:");
                 }
                 if(option == 0){
-                    break;
+                    SESSAO = null;
                 }
             }
         }
@@ -255,9 +306,9 @@ public class Main {
             System.out.println(row.getReputacao());
         }
         
-        Produto produto = new Produto("nomeProduto1", "descricaoProduto", 10, 120.50, "categoriaProduto");
-        Produto produto2 = new Produto("nomeProduto2", "descricaoProduto", 10, 120.50, "categoriaProduto");
-        Produto produto3 = new Produto("nomeProduto3", "descricaoProduto", 10, 120.50, "categoriaProduto");
+        Produto produto = new Produto("nomeProduto1", "descricaoProduto", 10, 120, "categoriaProduto");
+        Produto produto2 = new Produto("nomeProduto2", "descricaoProduto", 10, 120, "categoriaProduto");
+        Produto produto3 = new Produto("nomeProduto3", "descricaoProduto", 10, 120, "categoriaProduto");
         ArrayList<Produto> produtos = new ArrayList<>();
         produtos.add(produto);
         produtos.add(produto2);
@@ -414,6 +465,7 @@ public class Main {
         System.out.println("1 - Listar Produtos()");
         System.out.println("2 - Detalhar Produto()");
         System.out.println("3 - Comprar Item()");
-        System.out.println("4 - Histórico de Compras()");
+        System.out.println("4 - Gerir Compras()");
+        System.out.println("0 - Sair()");
     }
 }

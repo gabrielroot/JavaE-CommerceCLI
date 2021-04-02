@@ -6,6 +6,7 @@
 package br.edu.ifnmg.poo.ecommerce.controle;
 
 import br.edu.ifnmg.poo.ecommerce.dados.VendedorDAO;
+import br.edu.ifnmg.poo.ecommerce.modelo.Produto;
 import br.edu.ifnmg.poo.ecommerce.modelo.Vendedor;
 import java.util.ArrayList;
 
@@ -24,6 +25,10 @@ public class VendedorControlador {
     
     public Vendedor buscarVendedor(int id) {
         return VendedorDAO.buscarVendedor(id);
+    }
+    
+    public Vendedor buscarVendedorPorProduto(Produto produto) {
+        return VendedorDAO.buscarVendedorPorProduto(produto);
     }
     
     public boolean editarVendedor(int id, Vendedor vendedor) {

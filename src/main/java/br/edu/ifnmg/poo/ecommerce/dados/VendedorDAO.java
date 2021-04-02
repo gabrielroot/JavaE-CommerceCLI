@@ -40,6 +40,18 @@ public class VendedorDAO {
         return encontrado;
     }
     
+        public static Vendedor buscarVendedorPorProduto(Produto produtDeBuscao){
+            Vendedor vend = null;
+            for(Vendedor vendedor:vendedores){
+                for(Produto produto:vendedor.getProdutos()){
+                    if(produtDeBuscao == produto){
+                        return vendedor;
+                    }
+                }
+            }
+            return vend;
+        }
+    
     public static boolean editarVendedor(int id, Vendedor vendedor){
         ProdutoControlador produtoControlador = new ProdutoControlador();
         for (Vendedor encontrado : vendedores) {

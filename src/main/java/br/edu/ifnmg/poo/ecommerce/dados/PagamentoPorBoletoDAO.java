@@ -41,6 +41,7 @@ public class PagamentoPorBoletoDAO {
     public static boolean editarPagamentoPorBoleto(int id, PagamentoPorBoleto prod) {
         for(PagamentoPorBoleto pagamentoPorBoleto : pagamentoPorBoletos){
             if(pagamentoPorBoleto.getId() == id){
+                pagamentoPorBoleto = prod;
                 return true;
             }
         }

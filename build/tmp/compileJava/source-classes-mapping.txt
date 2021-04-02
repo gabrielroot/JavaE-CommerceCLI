@@ -18,8 +18,8 @@ br/edu/ifnmg/poo/ecommerce/controle/PagamentoPorCartaoControlador.java
  br.edu.ifnmg.poo.ecommerce.controle.PagamentoPorCartaoControlador
 br/edu/ifnmg/poo/ecommerce/controle/AdminControlador.java
  br.edu.ifnmg.poo.ecommerce.controle.AdminControlador
-br/edu/ifnmg/poo/ecommerce/controle/PagamentoPorBoletoControlador.java
- br.edu.ifnmg.poo.ecommerce.controle.PagamentoPorBoletoControlador
+br/edu/ifnmg/poo/ecommerce/dados/ComentarioDAO.java
+ br.edu.ifnmg.poo.ecommerce.dados.ComentarioDAO
 br/edu/ifnmg/poo/ecommerce/dados/PagamentoPorCartaoDAO.java
  br.edu.ifnmg.poo.ecommerce.dados.PagamentoPorCartaoDAO
 br/edu/ifnmg/poo/ecommerce/dados/PagamentoPorBoletoDAO.java
@@ -40,8 +40,8 @@ br/edu/ifnmg/poo/ecommerce/modelo/PagamentoPorCartao.java
  br.edu.ifnmg.poo.ecommerce.modelo.PagamentoPorCartao
 br/edu/ifnmg/poo/ecommerce/dados/ParcelaDAO.java
  br.edu.ifnmg.poo.ecommerce.dados.ParcelaDAO
-br/edu/ifnmg/poo/ecommerce/controle/CompraControlador.java
- br.edu.ifnmg.poo.ecommerce.controle.CompraControlador
+br/edu/ifnmg/poo/ecommerce/controle/PagamentoPorBoletoControlador.java
+ br.edu.ifnmg.poo.ecommerce.controle.PagamentoPorBoletoControlador
 br/edu/ifnmg/poo/ecommerce/modelo/Admin.java
  br.edu.ifnmg.poo.ecommerce.modelo.Admin
 br/edu/ifnmg/poo/ecommerce/dados/ProdutoDAO.java
@@ -60,8 +60,8 @@ br/edu/ifnmg/poo/ecommerce/modelo/Compra.java
  br.edu.ifnmg.poo.ecommerce.modelo.Compra
 br/edu/ifnmg/poo/ecommerce/modelo/Vendedor.java
  br.edu.ifnmg.poo.ecommerce.modelo.Vendedor
-br/edu/ifnmg/poo/ecommerce/dados/ComentarioDAO.java
- br.edu.ifnmg.poo.ecommerce.dados.ComentarioDAO
+br/edu/ifnmg/poo/ecommerce/controle/CompraControlador.java
+ br.edu.ifnmg.poo.ecommerce.controle.CompraControlador
 br/edu/ifnmg/poo/ecommerce/dados/CompraDAO.java
  br.edu.ifnmg.poo.ecommerce.dados.CompraDAO
 br/edu/ifnmg/poo/ecommerce/apresentacao/Main.java
