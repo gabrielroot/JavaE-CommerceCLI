@@ -40,11 +40,11 @@ public class VendedorDAO {
         return encontrado;
     }
     
-        public static Vendedor buscarVendedorPorProduto(Produto produtDeBuscao){
+        public static Vendedor buscarVendedorPorProduto(Produto produtDeBusca){
             Vendedor vend = null;
             for(Vendedor vendedor:vendedores){
                 for(Produto produto:vendedor.getProdutos()){
-                    if(produtDeBuscao == produto){
+                    if(produtDeBusca.equals(produto)){
                         return vendedor;
                     }
                 }

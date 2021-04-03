@@ -5,6 +5,7 @@
  */
 package br.edu.ifnmg.poo.ecommerce.modelo;
 
+import br.edu.ifnmg.poo.ecommerce.controle.VendedorControlador;
 import java.util.ArrayList;
 
 /**
@@ -22,8 +23,9 @@ public class Vendedor extends Usuario{
         this.reputacao = 0;
     }
     
-    public void addProduto(String nome, String descricao, int estoque, double preco, String categoria){
-        Produto produto = new Produto(nome, descricao, estoque, preco, categoria);
+    public void addProduto(Produto produto){
+        VendedorControlador vendedorControlador = new VendedorControlador();
+        vendedorControlador.editarVendedor(this.getId(), this);
         this.produtos.add(produto);
     }
     

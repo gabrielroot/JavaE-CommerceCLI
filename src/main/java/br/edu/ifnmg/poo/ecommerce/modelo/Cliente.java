@@ -5,6 +5,8 @@
  */
 package br.edu.ifnmg.poo.ecommerce.modelo;
 
+import br.edu.ifnmg.poo.ecommerce.controle.CompraControlador;
+import br.edu.ifnmg.poo.ecommerce.controle.VendedorControlador;
 import java.util.ArrayList;
 
 /**
@@ -45,10 +47,27 @@ public class Cliente extends Usuario{
         this.carrinho = carrinho;
     }
     
-    
-    
     public void novoEndereco(String nome, String cep, String estado, String cidade, String bairro, String ruaAv){
         EnderecoEntrega endereco = new EnderecoEntrega(nome, cep, estado, cidade, bairro, ruaAv);
         this.enderecosEntrega.add(endereco);
+    }
+    
+    public boolean avaliarVendedor(Compra compra, double pontuacao){
+        VendedorControlador vendedorControlador = new VendedorControlador();
+        Vendedor vendedor = null;
+        for(Produto produto:compra.getProdutos()){
+            vendedor = vendedorControlador.buscarVendedorPorProduto(produto);
+            if(vendedor != null){
+                vendedor.setReputacao(vendedor.getReputacao()+pontuacao);
+                vendedorControlador.editarVendedor(vendedor.getId(), vendedor);
+            }
+        }
+        return vendedor != null;
+    }
+    
+    public boolean comprar(Compra compra){
+        CompraControlador compraControlador = new CompraControlador();
+        compraControlador.cadastrarCompra(compra);
+        return true;
     }
 }

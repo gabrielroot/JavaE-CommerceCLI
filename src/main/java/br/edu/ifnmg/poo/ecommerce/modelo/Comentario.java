@@ -72,4 +72,19 @@ public class Comentario {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+ 
+    public String getDate(){
+        StringBuilder data = new StringBuilder();
+        data.append(this.getData().getDayOfMonth());
+        data.append("/");
+        data.append(this.getData().getMonth());
+        data.append("/");
+        data.append(this.getData().getYear());
+        data.append(" - ");
+        data.append(this.getData().getHour());
+        data.append(":");
+        data.append(this.getData().getMinute());
+        
+        return data.toString();
+    }
 }

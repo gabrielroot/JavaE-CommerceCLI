@@ -5,6 +5,7 @@
  */
 package br.edu.ifnmg.poo.ecommerce.modelo;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -64,4 +65,5 @@ public class PagamentoPorCartao extends Pagamento{
     public void setParcelas(ArrayList<Parcela> parcelas) {
         this.parcelas = parcelas;
     }
+   
 }

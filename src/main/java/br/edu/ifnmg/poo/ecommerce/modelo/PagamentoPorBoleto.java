@@ -81,4 +81,13 @@ public class PagamentoPorBoleto extends Pagamento{
     public void setPago(boolean pago) {
         this.pago = pago;
     }
+
+    public String getDate(){
+        StringBuilder data = new StringBuilder();
+        data.append(this.getVencimento().getDayOfMonth());
+        data.append("/");
+        data.append(this.getVencimento().getMonth());
+        
+        return data.toString();
+    }
 }

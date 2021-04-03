@@ -39,6 +39,48 @@ public class Admin extends Usuario{
         return admin;
     }
     
+    public boolean deletarVendedor(int id){
+        VendedorControlador vendedorControlador = new VendedorControlador();
+        AdminControlador adminControlador = new AdminControlador();
+        Vendedor vendedor = vendedorControlador.buscarVendedor(id);
+        if(vendedor != null){
+            vendedoresDeletados.add(vendedor);
+            this.setVendedoresDeletados(vendedoresDeletados);
+            adminControlador.editarAdmin(this.getId(), this);
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    public boolean deletarProduto(int id){
+        ProdutoControlador produtoControlador = new ProdutoControlador();
+        AdminControlador adminControlador = new AdminControlador();
+        Produto produto = produtoControlador.buscarProduto(id);
+        if(produto != null){
+            produtosDeletados.add(produto);
+            this.setProdutosDeletados(produtosDeletados);
+            adminControlador.editarAdmin(this.getId(), this);
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    public boolean deletarCliente(int id){
+        ClienteControlador clienteControlador = new ClienteControlador();
+        AdminControlador adminControlador = new AdminControlador();
+        Cliente cliente = clienteControlador.buscarCliente(id);
+        if(cliente != null){
+            clientesDeletados.add(cliente);
+            this.setClientesDeletados(clientesDeletados);
+            adminControlador.editarAdmin(this.getId(), this);
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
     public ArrayList<Vendedor> getVendedoresDeletados() {
         return vendedoresDeletados;
     }
