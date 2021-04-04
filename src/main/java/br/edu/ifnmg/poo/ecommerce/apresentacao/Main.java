@@ -627,49 +627,56 @@ public class Main {
     }
 
     private static void cadastrar() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("            CADASTRAR");
-        System.out.println("1 - Cliente");
-        System.out.println("2 - Vendedor");
-        int opt = Integer.parseInt(scanner.nextLine());
-        
-        System.out.print("Nome: ");
-        String nome = scanner.nextLine();
-        System.out.print("Email: ");
-        String email = scanner.nextLine();
-        System.out.print("Senha: ");
-        String senha = scanner.nextLine();
-        System.out.print("CPF: ");
-        String cpf = scanner.nextLine();
-        
-        if(opt == 1){
-            System.out.println("Endereço");
-            System.out.print("  Nome para Endereço: ");
-            String nomeEndereco = scanner.nextLine();
-            System.out.print("  CEP: ");
-            String cep = scanner.nextLine();
-            System.out.print("  Estado: ");
-            String estado = scanner.nextLine();
-            System.out.print("  Cidade: ");
-            String cidade = scanner.nextLine();
-            System.out.print("  Bairro: ");
-            String bairro = scanner.nextLine();
-            System.out.print("  Rua/Avenida: ");
-            String ruaAv = scanner.nextLine();
-                
-            Cliente cliente = new Cliente(nome, email, senha, cpf);
-            EnderecoEntrega endereco = new EnderecoEntrega(nomeEndereco, cep, estado, cidade, bairro, ruaAv);
-            ArrayList<EnderecoEntrega> enderecos = new ArrayList<>();
-            enderecos.add(endereco);
-            cliente.setEnderecosEntrega(enderecos);
-            ClienteControlador clienteControlador = new ClienteControlador();
-            clienteControlador.cadastrarCliente(cliente, enderecos);
-            System.out.println("CADASTRADO!");
-        }else if(opt == 2){
-            Vendedor vendedor = new Vendedor(nome, email, senha, cpf);
-            VendedorControlador vendedorControlador = new VendedorControlador();
-            vendedorControlador.cadastrarVendedor(vendedor);
-            System.out.println("CADASTRADO!");
+        while(true){
+            try{
+                Scanner scanner = new Scanner(System.in);
+                System.out.println("            CADASTRAR");
+                System.out.println("1 - Cliente");
+                System.out.println("2 - Vendedor");
+                int opt = Integer.parseInt(scanner.nextLine());
+
+                System.out.print("Nome: ");
+                String nome = scanner.nextLine();
+                System.out.print("Email: ");
+                String email = scanner.nextLine();
+                System.out.print("Senha: ");
+                String senha = scanner.nextLine();
+                System.out.print("CPF: ");
+                String cpf = scanner.nextLine();
+
+                if(opt == 1){
+                    System.out.println("Endereço");
+                    System.out.print("  Nome para Endereço: ");
+                    String nomeEndereco = scanner.nextLine();
+                    System.out.print("  CEP: ");
+                    String cep = scanner.nextLine();
+                    System.out.print("  Estado: ");
+                    String estado = scanner.nextLine();
+                    System.out.print("  Cidade: ");
+                    String cidade = scanner.nextLine();
+                    System.out.print("  Bairro: ");
+                    String bairro = scanner.nextLine();
+                    System.out.print("  Rua/Avenida: ");
+                    String ruaAv = scanner.nextLine();
+
+                    Cliente cliente = new Cliente(nome, email, senha, cpf);
+                    EnderecoEntrega endereco = new EnderecoEntrega(nomeEndereco, cep, estado, cidade, bairro, ruaAv);
+                    ArrayList<EnderecoEntrega> enderecos = new ArrayList<>();
+                    enderecos.add(endereco);
+                    cliente.setEnderecosEntrega(enderecos);
+                    ClienteControlador clienteControlador = new ClienteControlador();
+                    clienteControlador.cadastrarCliente(cliente, enderecos);
+                    System.out.println("CADASTRADO!");
+                }else if(opt == 2){
+                    Vendedor vendedor = new Vendedor(nome, email, senha, cpf);
+                    VendedorControlador vendedorControlador = new VendedorControlador();
+                    vendedorControlador.cadastrarVendedor(vendedor);
+                    System.out.println("CADASTRADO!");
+                }
+                break;
+            }catch(NumberFormatException e){
+                System.out.println("Número inválido");
+            }
         }
     }
     
