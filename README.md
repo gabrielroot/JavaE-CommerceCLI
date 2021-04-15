@@ -31,7 +31,7 @@ https://github.com/gabrielroot/JavaE-CommerceCLI
 ## Uso do sistema
 ### Login
 O sistema conta com três opções e login:
-### - Cliente
+#### - Cliente
 Este, conta com um painel e 4 opções: Listar produtos, Detalhar produto, Comprar item e Gerir Compras:
 
   - Listar produtos: Apenas exibe uma visão geral de todos os produtos.
@@ -42,7 +42,7 @@ Este, conta com um painel e 4 opções: Listar produtos, Detalhar produto, Compr
 
   - Gerir compras: Feito a compra, o cliente poderá informar o ID da compra para obter seus detalhes, bem como pagar o boleto único (Pagamento por boleto) ou a próxima parcela do produto (Pagamento por cartão).
 
-### - Vendedor
+#### - Vendedor
 Este, conta com um painel e 4 opções: Meus produtos, Novo produto, Ver reputação e Sacar:
 
   - Meus produtos: Retorna uma lista com todos os produtos do vendedor logado. Na lista conterá todos os comentários, podendo ele enviar uma resposta caso queira.
@@ -53,8 +53,8 @@ Este, conta com um painel e 4 opções: Meus produtos, Novo produto, Ver reputa�
 
   - Sacar: Poderá retirar valores de sua conta no e-commerce.
 
-### - Administrador
+#### - Administrador
 Este, conta com um painel e 4 opções: Deletar vendedor, Deletar cliente, Deletar produto, Cadastrar administrador. Para deletar, serão listadas as opções existentes e para cadastrar serão solicitados os dados do administrador.
 
-- Cadastro
+### Cadastro
 Para o cadastro, apenas serão solicitados os dados do novo usuário.
